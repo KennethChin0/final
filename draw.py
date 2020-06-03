@@ -321,7 +321,22 @@ def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
 def add_point( matrix, x, y, z=0 ):
     matrix.append( [x, y, z, 1] )
 
-
+def add_mesh(polygons, filename):
+    f = open(filename+".obj", 'r')
+    vertices = []
+    for line in f.readlines():
+        line = line.split(' ')
+        if line[0] == 'v':
+            vertices.append((float(line[1]), float(line[2]), float(line[3])))
+        elif line[0] == 'f':
+            p0 = vertices[int(line[1])-1]
+            for i in range(3, len(line)):
+                p1 = vertices[int(line[i-1])-1]
+                p2 = vertices[int(line[i])-1]
+                add_polygon(polygons, p0[0], p0[1], p0[2],
+                                      p1[0], p1[1], p1[2],
+                                      p2[0], p2[1], p2[2])
+    f.close()
 
 def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
 
