@@ -98,7 +98,7 @@ setknobs value		- set all the knobs to value
 
 Lighting
 --------
-light r g b x y z  	- creates a "light" datastructure with rgb values
+light x y z r g b 	- creates a "light" datastructure with rgb values
 			  r,g,b at location x,y,z.
 			  This is inserted into the symbol table.
 

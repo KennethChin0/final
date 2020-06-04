@@ -112,12 +112,12 @@ def run(filename):
     ambient = [50,
                50,
                50]
-    light = [[0.5,
+    light = [[[0.5,
               0.75,
               1],
              [255,
               255,
-              255]]
+              255]]]
 
     color = [0, 0, 0]
     symbols['.white'] = ['constants',
@@ -125,7 +125,9 @@ def run(filename):
                           'green': [0.2, 0.5, 0.5],
                           'blue': [0.2, 0.5, 0.5]}]
     reflect = '.white'
-
+    for key in symbols.keys():
+        if symbols[key][0]=="light":
+            light.append([symbols[key][1]['location'], symbols[key][1]['color']])
     (name, num_frames) = first_pass(commands)
     frames = second_pass(commands, num_frames)
 
