@@ -155,8 +155,6 @@ def run(filename):
         for command in commands:
             print(command)
             c = command['op']
-            if c == 'mesh':
-                print("--------------------")
             args = command['args']
             knob_value = 1
 

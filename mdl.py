@@ -288,10 +288,10 @@ def p_command_knobs(p):
     """command : SET SYMBOL NUMBER
                | SET_KNOBS NUMBER"""
     cmd = {'op' : p[1], 'args' : [], 'knob' : None}
-    if p[1] == 'SET':
+    if p[1] == 'set':
         cmd['knob'] = p[2]
         cmd['args'].append(p[3])
-        symbols[p[2]] = p[3]
+        symbols[p[2]] = ['knob', p[3]]
     else:
         cmd['args'].append(p[2])
     commands.append(cmd)
