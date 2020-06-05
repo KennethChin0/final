@@ -125,9 +125,9 @@ def run(filename):
                           'green': [0.2, 0.5, 0.5],
                           'blue': [0.2, 0.5, 0.5]}]
     reflect = '.white'
-    for key in symbols.keys():
-        if symbols[key][0]=="light":
-            light.append([symbols[key][1]['location'], symbols[key][1]['color']])
+    for value in symbols.values():
+        if value[0]=="light":
+            light.append([value[1]['location'], value[1]['color']])
     (name, num_frames) = first_pass(commands)
     frames = second_pass(commands, num_frames)
 
