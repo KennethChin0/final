@@ -9,8 +9,9 @@ box -100 125 50 200 250 100
 push
 move 0 175 0
 rotate y 90
-sphere shiny_purple 0 0 0 50
+save_coord_system head
 pop
+sphere shiny_purple 0 0 0 50 head
 //LEFT ARM
 push
 move -100 125 0
@@ -19,9 +20,10 @@ box -40 0 40 40 100 80
 //LEFT LOWER ARM
 push
 move -20 -100 0
-box -10 0 10 20 125 20
+save_coord_system left_lower_arm
 pop
 pop
+box -10 0 10 20 125 20 left_lower_arm
 //RIGHT ARM
 push
 move 100 125 0
