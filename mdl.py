@@ -351,6 +351,9 @@ def p_save_knobs(p):
     "command : SAVE_KNOBS SYMBOL"
     cmd = {'op':p[1], 'args':None, 'knob_list':p[2]}
     symbols[p[2]] = ['knob_list', []]
+    for symbol,value in symbols.items():
+        if value[0]=="knob":
+            symbols[p[2]][1].append([symbol,value])
     commands.append(cmd)
 
 def p_save_coords(p):

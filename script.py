@@ -29,7 +29,7 @@ def first_pass( commands ):
         if command['op'] == 'frames':
             num_frames = int(command['args'][0])
             frameCheck = True
-        elif command['op'] == 'vary':
+        elif command['op'] == 'vary' or command['op'] == 'tween':
             varyCheck = True
         elif command['op'] == 'basename':
             name = command['args'][0]
@@ -62,7 +62,7 @@ def first_pass( commands ):
   dictionary corresponding to the given knob with the
   appropirate value.
   ===================="""
-def second_pass( commands, num_frames ):
+def second_pass( commands, symbols, num_frames ):
     frames = [ {} for i in range(num_frames) ]
 
     for command in commands:
@@ -91,6 +91,29 @@ def second_pass( commands, num_frames ):
                     value = start_value + delta * (f - start_frame)
                     frames[f][knob_name] = value
                 #print 'knob: ' + knob_name + '\tvalue: ' + str(frames[f][knob_name])
+        elif command['op'] == 'tween':
+            args = command['args']
+            start_frame = args[0]
+            end_frame = args[1]
+            l0 = symbols[command['knob_list0']][1]
+            l1 = symbols[command['knob_list1']][1]
+            if ((start_frame < 0) or
+                (end_frame >= num_frames) or
+                (end_frame <= start_frame)):
+                print('Invalid tween command')
+                exit()
+
+            for knob_start, knob_end in zip(l0,l1):
+                knob_name = knob_start[0]
+                start_value = knob_start[1][1]
+                end_value = knob_end[1][1]
+                delta = (end_value - start_value) / (end_frame - start_frame)
+                for f in range(num_frames):
+                    if f == start_frame:
+                        frames[f][knob_name] = start_value
+                    elif f >= start_frame and f <= end_frame:
+                        start_value += delta
+                        frames[f][knob_name] = start_value
     return frames
 
 
@@ -129,7 +152,7 @@ def run(filename):
         if value[0]=="light":
             light.append([value[1]['location'], value[1]['color']])
     (name, num_frames) = first_pass(commands)
-    frames = second_pass(commands, num_frames)
+    frames = second_pass(commands, symbols, num_frames)
 
     for f in range(num_frames):
         tmp = new_matrix()
@@ -223,7 +246,7 @@ def run(filename):
                     tmp = make_rotZ(theta)
                 matrix_mult( stack[-1], tmp )
                 stack[-1] = [ x[:] for x in tmp]
-                tmp = []
+                tmp= []
             elif c == 'push':
                 stack.append([x[:] for x in stack[-1]] )
             elif c == 'pop':
