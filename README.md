@@ -3,6 +3,11 @@
 
 #### Features to be implemented
 - light
+    - Add a light to the symbol table
+    - MDL Commands:
+        - light lightname x y z r g b
+        - creates a light at the point x y z using the given r g b
+ 
 - mesh
 - set
 - save knobs
