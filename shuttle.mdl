@@ -1,0 +1,10 @@
+constants shiny_purple 0.2 0.3 0.7 0.0 0.0 0.0 0.0 0.3 0.7
+light light1 250 250 -1 0 0 255
+push
+move 250 250 0
+scale 30 30 30
+rotate z -80
+rotate x -30
+mesh :shuttle
+display
+save shuttle.png
