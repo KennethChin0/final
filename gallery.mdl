@@ -1,0 +1,43 @@
+frames 100
+basename space_ship
+light red -0.5 0.5 .5 255 0 0
+light green 0.5 0.5 .5 0 255 0
+light blue 0 -1 .5 0 0 255
+light white 0.5 0.5 1 148 148 148
+
+push
+move 250 250 0
+save_coord_system world
+
+push
+rotate z 720 orbit1
+move 0 125 0
+scale 8 8 8
+rotate x -90
+rotate x 360 rot
+save_coord_system shuttle1
+pop
+
+push
+rotate z -360 orbit2
+move 0 200 0
+scale 4 4 4
+rotate x 90
+rotate y 180
+rotate x -720 rot
+save_coord_system shuttle2
+pop
+
+sphere 0 0 0 80 world
+mesh :shuttle shuttle1
+mesh :shuttle shuttle2
+
+set orbit1 0
+set orbit2 0
+set rot 0
+save_knobs begin
+set orbit1 1
+set orbit2 1
+set rot 1
+save_knobs end
+tween 0 99 begin end

@@ -135,12 +135,7 @@ def run(filename):
     ambient = [50,
                50,
                50]
-    light = [[[0.5,
-              0.75,
-              1],
-             [255,
-              255,
-              255]]]
+    light = []
 
     color = [0, 0, 0]
     symbols['.white'] = ['constants',
@@ -151,6 +146,10 @@ def run(filename):
     for value in symbols.values():
         if value[0]=="light":
             light.append([value[1]['location'], value[1]['color']])
+    if len(light) == 0:
+        print("No light value found: using default light value [[0.5, 0.75, 1], [255, 255, 255]]")
+        light = [[[0.5, 0.75, 1], [255, 255, 255]]]
+
     (name, num_frames) = first_pass(commands)
     frames = second_pass(commands, symbols, num_frames)
 
